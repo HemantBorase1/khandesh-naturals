@@ -106,8 +106,8 @@ export default function Hero() {
               {/* Product image card */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=800&q=85&auto=format&fit=crop"
-                  alt="Khandesh Naturals banana chips — spicy and salty varieties served in a bowl"
+                  src="/images/HomeImg.png"
+                  alt="Khandesh Naturals Salty and Spicy Banana Chips — two varieties of crispy, golden banana chips"
                   className="w-full h-64 sm:h-80 lg:h-96 object-cover"
                   loading="eager"
                   onError={(e) => {

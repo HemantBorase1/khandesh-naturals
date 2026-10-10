@@ -159,8 +159,8 @@ export default function About() {
 
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                   <img
-                    src="https://images.unsplash.com/photo-1528825871115-3581a5387919?w=800&q=85&auto=format&fit=crop"
-                    alt="A bowl of crispy banana chips representing the snacks offered by Khandesh Naturals"
+                    src="/images/Story.jpg"
+                    alt="Khandesh heritage and landscape in Maharashtra — the roots of Khandesh Naturals"
                     loading="lazy"
                     className="w-full h-64 sm:h-80 lg:h-[400px] object-cover"
                     onError={(e) => {

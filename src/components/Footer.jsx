@@ -19,13 +19,15 @@ export default function Footer() {
 
           {/* ── Brand column ── */}
           <div className="max-w-xs">
-            <a href="#home" className="group inline-block mb-3">
-              <span className="text-xl font-bold text-natural-cream group-hover:text-banana-yellow transition-colors duration-200">
-                Khandesh{' '}
-              </span>
-              <span className="text-xl font-bold text-banana-yellow">
-                Naturals
-              </span>
+            <a href="#home" className="inline-block mb-4" aria-label="Khandesh Naturals — go to home">
+              <div className="bg-natural-cream rounded-2xl px-3 py-2">
+                <img
+                  src="/images/logo.png"
+                  alt="Khandesh Naturals Logo"
+                  className="h-12 w-auto object-contain"
+                  loading="lazy"
+                />
+              </div>
             </a>
 
             <p className="text-xs font-semibold tracking-[0.15em] text-banana-yellow/65 uppercase mb-3">

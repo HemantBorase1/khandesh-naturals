@@ -6,8 +6,7 @@ const PRODUCTS = [
     name: 'Spicy Banana Chips',
     description: 'A flavourful, spicy crunch for those who enjoy a little heat.',
     badge: '🌶 Spicy',
-    imageUrl:
-      'https://images.unsplash.com/photo-1604187351574-c75ca79f5807?w=800&q=85&auto=format&fit=crop',
+    imageUrl: '/images/SpicyImg.png',
     imageAlt:
       'Khandesh Naturals Spicy Banana Chips — crispy golden chips with a spicy seasoning, served in a bowl',
   },
@@ -16,8 +15,7 @@ const PRODUCTS = [
     name: 'Salty Banana Chips',
     description: 'A simple, savoury crunch for your everyday snack moments.',
     badge: '🧂 Salty',
-    imageUrl:
-      'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=800&q=85&auto=format&fit=crop',
+    imageUrl: '/images/SaltyChips.png',
     imageAlt:
       'Khandesh Naturals Salty Banana Chips — lightly salted, crispy banana chips in a bowl',
   },

@@ -16,16 +16,21 @@ export default function Navbar() {
   return (
     <nav className="bg-forest-green sticky top-0 z-50 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-18 sm:h-20">
 
           {/* Brand logo */}
           <a
             href="#home"
             onClick={closeMenu}
-            className="flex-shrink-0 font-bold text-xl tracking-wide leading-none"
+            className="flex-shrink-0"
+            aria-label="Khandesh Naturals — go to home"
           >
-            <span className="text-natural-cream">Khandesh </span>
-            <span className="text-banana-yellow">Naturals</span>
+            <img
+              src="/images/logo.png"
+              alt="Khandesh Naturals Logo"
+              className="h-12 sm:h-14 lg:h-16 w-auto object-contain"
+              loading="eager"
+            />
           </a>
 
           {/* Desktop nav links */}
