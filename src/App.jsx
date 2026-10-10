@@ -1,6 +1,9 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Products from './components/Products';
+import About from './components/About';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -8,7 +11,9 @@ function App() {
       <Navbar />
       <Hero />
       <Products />
-      {/* Future sections (About, Contact) go here */}
+      <About />
+      <Contact />
+      <Footer />
     </>
   );
 }

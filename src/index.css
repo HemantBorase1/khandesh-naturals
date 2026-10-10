@@ -5,4 +5,28 @@
   --color-natural-cream: #F4F0E3;
   --color-banana-yellow: #E9B949;
   --color-earth-brown: #783F27;
+  --color-dark-text: #242820;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ─── Global base ─────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  /* Offset anchors so the sticky navbar doesn't cover headings */
+  scroll-padding-top: 64px;
+}
+
+body {
+  background-color: #F4F0E3;
+  color: #242820;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Focus ring — visible on keyboard, hidden on click ── */
+:focus-visible {
+  outline: 2px solid #E9B949;
+  outline-offset: 3px;
+  border-radius: 4px;
 }

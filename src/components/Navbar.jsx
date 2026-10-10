@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const navLinks = [
+const NAV_LINKS = [
   { label: 'Home', href: '#home' },
   { label: 'Products', href: '#products' },
   { label: 'About Us', href: '#about' },
@@ -18,68 +18,53 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
 
-          {/* Logo */}
+          {/* Brand logo */}
           <a
             href="#home"
-            className="flex-shrink-0 text-natural-cream font-bold text-xl tracking-wide leading-tight"
             onClick={closeMenu}
+            className="flex-shrink-0 font-bold text-xl tracking-wide leading-none"
           >
-            Khandesh{' '}
+            <span className="text-natural-cream">Khandesh </span>
             <span className="text-banana-yellow">Naturals</span>
           </a>
 
           {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+          <div className="hidden md:flex items-center gap-7">
+            {NAV_LINKS.map(({ label, href }) => (
               <a
-                key={link.href}
-                href={link.href}
-                className="text-natural-cream/90 hover:text-banana-yellow text-sm font-medium tracking-wide transition-colors duration-200"
+                key={href}
+                href={href}
+                className="text-natural-cream/80 hover:text-banana-yellow text-sm font-medium tracking-wide transition-colors duration-200 focus-visible:text-banana-yellow"
               >
-                {link.label}
+                {label}
               </a>
             ))}
           </div>
 
           {/* Desktop CTA + Mobile hamburger */}
-          <div className="flex items-center gap-4">
-            {/* Order Now button — visible on all sizes */}
+          <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="hidden md:inline-flex items-center bg-banana-yellow text-forest-green text-sm font-semibold px-5 py-2 rounded-full hover:brightness-110 transition-all duration-200 shadow-sm"
+              className="hidden md:inline-flex items-center bg-banana-yellow text-forest-green text-sm font-semibold px-5 py-2 rounded-full shadow-sm hover:brightness-110 transition-all duration-200"
             >
               Order Now
             </a>
 
-            {/* Hamburger button — mobile only */}
+            {/* Hamburger — mobile only */}
             <button
+              type="button"
               onClick={toggleMenu}
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={menuOpen}
-              className="md:hidden text-natural-cream p-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-banana-yellow"
+              aria-controls="mobile-menu"
+              className="md:hidden inline-flex items-center justify-center text-natural-cream p-2 rounded-lg hover:bg-white/10 transition-colors duration-150"
             >
               {menuOpen ? (
-                /* X icon */
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                /* Hamburger icon */
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
@@ -88,24 +73,29 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile dropdown menu */}
+      {/* Mobile dropdown */}
       {menuOpen && (
-        <div className="md:hidden bg-forest-green border-t border-natural-cream/10 px-4 pb-4 pt-2">
-          <div className="flex flex-col gap-1">
-            {navLinks.map((link) => (
+        <div
+          id="mobile-menu"
+          role="navigation"
+          aria-label="Mobile navigation"
+          className="md:hidden border-t border-natural-cream/10 bg-forest-green"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col gap-1">
+            {NAV_LINKS.map(({ label, href }) => (
               <a
-                key={link.href}
-                href={link.href}
+                key={href}
+                href={href}
                 onClick={closeMenu}
-                className="text-natural-cream/90 hover:text-banana-yellow hover:bg-white/5 text-sm font-medium px-3 py-2 rounded-lg transition-colors duration-200"
+                className="text-natural-cream/85 hover:text-banana-yellow hover:bg-white/5 text-sm font-medium px-3 py-2.5 rounded-lg transition-colors duration-150"
               >
-                {link.label}
+                {label}
               </a>
             ))}
             <a
               href="#contact"
               onClick={closeMenu}
-              className="mt-2 text-center bg-banana-yellow text-forest-green text-sm font-semibold px-5 py-2 rounded-full hover:brightness-110 transition-all duration-200 shadow-sm"
+              className="mt-2 text-center bg-banana-yellow text-forest-green text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm hover:brightness-110 transition-all duration-200"
             >
               Order Now
             </a>
