@@ -78,7 +78,7 @@ export async function submitEnquiry(payload) {
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body,
     });
-  } catch (networkErr) {
+  } catch {
     // fetch() threw a TypeError ("Failed to fetch"). In this context this is
     // almost always a browser CORS block: the server responded (likely with
     // 401 Unauthorized) but without an Access-Control-Allow-Origin header, so
