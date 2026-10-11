@@ -3,6 +3,7 @@
  *
  * Props:
  *  name        {string}  — product display name
+ *  price       {string}  — product price display (e.g. "₹250 / kg")
  *  description {string}  — short product description
  *  imageUrl    {string}  — primary image URL
  *  imageAlt    {string}  — descriptive alt text
@@ -11,6 +12,7 @@
  */
 export default function ProductCard({
   name,
+  price,
   description,
   imageUrl,
   imageAlt,
@@ -56,9 +58,16 @@ export default function ProductCard({
         {/* Accent bar */}
         <div className="w-8 h-1 rounded-full bg-banana-yellow mb-4" aria-hidden="true" />
 
-        <h3 className="text-lg font-bold text-forest-green mb-2 leading-snug">
-          {name}
-        </h3>
+        <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+          <h3 className="text-lg font-bold text-forest-green leading-snug">
+            {name}
+          </h3>
+          {price && (
+            <span className="inline-flex items-center text-sm font-bold text-forest-green bg-natural-cream/80 border border-banana-yellow/60 px-2.5 py-0.5 rounded-full tracking-wide">
+              {price}
+            </span>
+          )}
+        </div>
 
         <p className="text-forest-green/60 text-sm leading-relaxed flex-1 mb-6">
           {description}

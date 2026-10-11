@@ -4,6 +4,7 @@ const PRODUCTS = [
   {
     id: 'spicy-banana-chips',
     name: 'Spicy Banana Chips',
+    price: '₹250 / kg',
     description: 'A flavourful, spicy crunch for those who enjoy a little heat.',
     badge: '🌶 Spicy',
     imageUrl: '/images/SpicyImg.png',
@@ -13,6 +14,7 @@ const PRODUCTS = [
   {
     id: 'salty-banana-chips',
     name: 'Salty Banana Chips',
+    price: '₹250 / kg',
     description: 'A simple, savoury crunch for your everyday snack moments.',
     badge: '🧂 Salty',
     imageUrl: '/images/SaltyChips.png',
@@ -56,6 +58,7 @@ export default function Products() {
             <ProductCard
               key={product.id}
               name={product.name}
+              price={product.price}
               description={product.description}
               badge={product.badge}
               imageUrl={product.imageUrl}

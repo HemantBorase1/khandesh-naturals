@@ -156,8 +156,7 @@ export default function Contact() {
             Let's Connect
           </h2>
           <p className="text-forest-green/65 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-            Have a question about our banana chips? Get in touch with Khandesh Naturals.
-            We'd love to hear from you.
+            Interested in ordering our Banana Chips? Submit your details using the form below.
           </p>
         </div>
 
@@ -186,8 +185,8 @@ export default function Contact() {
                   <strong className="font-semibold text-forest-green">{form.product}</strong>{' '}
                   has been received. We'll be in touch soon.
                 </p>
-                <p className="text-forest-green/45 text-xs leading-relaxed mb-7 max-w-xs mx-auto">
-                  Your details have been saved and a team member will reach out to you shortly.
+                <p className="text-forest-green font-semibold text-xs sm:text-sm leading-relaxed mb-7 max-w-xs mx-auto">
+                  Your details have been saved and a team member will reach out you within 24 Hours.
                 </p>
                 <button
                   type="button"
