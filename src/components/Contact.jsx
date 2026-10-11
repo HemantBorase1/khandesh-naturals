@@ -187,8 +187,7 @@ export default function Contact() {
                   has been received. We'll be in touch soon.
                 </p>
                 <p className="text-forest-green/45 text-xs leading-relaxed mb-7 max-w-xs mx-auto">
-                  Your details have been saved to our enquiry sheet and a team member
-                  will reach out to you.
+                  Your details have been saved and a team member will reach out to you shortly.
                 </p>
                 <button
                   type="button"

@@ -24,17 +24,18 @@
  * 4. Click "Save" (💾), then click "Deploy" → "New deployment".
  *    - Type: Web App
  *    - Execute as: Me (your Google account)
- *    - Who has access: Anyone   ← required so the website can POST without auth
+ *    - Who has access: Anyone   ← REQUIRED — must be "Anyone", not "Anyone with Google account"
  *    Click "Deploy" and authorize when prompted.
  *
  * 5. Copy the Web App URL (ends in /exec).
- *    In your project, create a file called .env (never commit this file):
+ *    In your project root, open .env and set:
  *
  *      VITE_GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/YOUR_ID/exec
  *
  *    Restart `npm run dev` so Vite picks up the new variable.
  *
- * 6. Submit a test enquiry from the website and verify a row appears in Sheets.
+ * 6. Run testSheetWrite() from the Apps Script editor to confirm the sheet
+ *    is writable BEFORE testing the web form.
  *
  * RE-DEPLOYING AFTER CODE CHANGES
  * --------------------------------
@@ -46,7 +47,7 @@
  * - This endpoint is publicly accessible. Anyone who discovers the URL can POST to it.
  * - Server-side field validation (below) rejects obviously malformed payloads.
  * - For stronger protection consider:
- *     • A shared secret token checked on both sides (adds minimal friction for bots).
+ *     • A shared secret token checked on both sides.
  *     • reCAPTCHA v3 on the frontend with server-side token verification.
  *     • Moving to a proper backend (Cloud Functions, etc.) with rate limiting.
  * - Do NOT log full phone numbers or other personal data unnecessarily.
@@ -54,8 +55,8 @@
 
 // ── Configuration ─────────────────────────────────────────────────────────────
 
-/** Paste your Google Sheets spreadsheet ID here. */
-var SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID_HERE';
+/** Spreadsheet ID — the token between /d/ and /edit in the Google Sheets URL. */
+var SPREADSHEET_ID = '1SiqDZ2pughY6rEC3im4TucupN5jrs4daVUHlV2oj1qM';
 
 /** The exact name of the sheet tab where enquiries will be written. */
 var SHEET_NAME = 'Enquiries';
@@ -74,13 +75,20 @@ var LIMITS = {
   message:  1000,
 };
 
-// ── CORS helper ───────────────────────────────────────────────────────────────
+// ── Response helper ───────────────────────────────────────────────────────────
 
 /**
- * Returns a JSON ContentService output with CORS headers set.
- * Apps Script does not allow setting arbitrary response headers directly,
- * but ContentService.setMimeType(JSON) is sufficient for standard CORS
- * POST requests from browsers when the script is deployed as "Anyone" access.
+ * Returns a JSON ContentService output.
+ *
+ * CORS NOTE: Apps Script cannot respond to browser CORS preflight (OPTIONS)
+ * requests. The frontend must send only CORS "simple requests":
+ *   - Content-Type: text/plain;charset=utf-8  (NOT application/json)
+ *   - No custom request headers
+ *   - mode: "cors" (default) — Apps Script does return Access-Control-Allow-Origin: *
+ *     on its final response for simple requests when deployed as "Anyone".
+ *
+ * The 401 Unauthorized error means the deployment is NOT set to "Anyone".
+ * Fix the deployment access setting — do not work around it with no-cors.
  */
 function jsonResponse(obj) {
   return ContentService
@@ -88,10 +96,69 @@ function jsonResponse(obj) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-// ── Handle OPTIONS preflight (browsers send this before cross-origin POSTs) ──
+// ── Standalone sheet write test (run this first from the editor) ──────────────
+
+/**
+ * testSheetWrite()
+ * ----------------
+ * Run this function MANUALLY from the Apps Script editor (▶ Run button)
+ * BEFORE testing the web form. It confirms the sheet is accessible and writable.
+ *
+ * HOW TO RUN:
+ *   1. In the Apps Script editor, select "testSheetWrite" from the function dropdown.
+ *   2. Click ▶ Run.
+ *   3. Check the Execution Log (View → Logs) for "TEST ROW WRITTEN SUCCESSFULLY".
+ *   4. Open your Google Sheet and confirm a row labelled "=== TEST ROW ===" appeared.
+ *   5. Delete that test row manually before going live.
+ *
+ * This function does NOT affect doPost(e) and is never called by the web form.
+ */
+function testSheetWrite() {
+  try {
+    Logger.log('testSheetWrite: opening spreadsheet ID = ' + SPREADSHEET_ID);
+    var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    Logger.log('testSheetWrite: spreadsheet opened: ' + ss.getName());
+
+    var sheet = ss.getSheetByName(SHEET_NAME);
+    if (!sheet) {
+      Logger.log('testSheetWrite: sheet "' + SHEET_NAME + '" not found — creating it');
+      sheet = ss.insertSheet(SHEET_NAME);
+    }
+    Logger.log('testSheetWrite: sheet found: ' + sheet.getName());
+
+    // Add headers if the sheet is brand new
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(HEADERS);
+      sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
+      Logger.log('testSheetWrite: header row written');
+    }
+
+    // Write a clearly labelled test row
+    var testTimestamp = new Date().toISOString();
+    sheet.appendRow([
+      testTimestamp,
+      '=== TEST ROW ===',
+      '9999999999',
+      'Spicy Banana Chips',
+      'This is a diagnostic test row — delete after confirming.'
+    ]);
+
+    Logger.log('TEST ROW WRITTEN SUCCESSFULLY at ' + testTimestamp);
+    Logger.log('Open your sheet and verify the row, then delete it before going live.');
+
+  } catch (err) {
+    Logger.log('testSheetWrite ERROR: ' + err.message);
+    Logger.log('Stack: ' + err.stack);
+    throw err; // Surface the error in the Executions panel
+  }
+}
+
+// ── GET handler ───────────────────────────────────────────────────────────────
 
 function doGet() {
   // Respond to accidental GET requests with a plain message.
+  // If this returns a Google sign-in page instead of JSON, the deployment
+  // "Who has access" is NOT set to "Anyone" — fix the deployment, not the code.
   return jsonResponse({ status: 'error', message: 'This endpoint only accepts POST requests.' });
 }
 
@@ -100,6 +167,8 @@ function doGet() {
 function doPost(e) {
   try {
     // 1. Parse request body
+    //    The frontend sends Content-Type: text/plain with a JSON-stringified body.
+    //    e.postData.contents holds the raw string regardless of MIME type.
     if (!e || !e.postData || !e.postData.contents) {
       return jsonResponse({ status: 'error', message: 'Empty request body.' });
     }
@@ -147,19 +216,15 @@ function doPost(e) {
     var sheet = ss.getSheetByName(SHEET_NAME);
 
     if (!sheet) {
-      // Create the sheet if it doesn't exist yet
       sheet = ss.insertSheet(SHEET_NAME);
     }
 
     // Add header row if the sheet is empty
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(HEADERS);
-      // Bold the header row
       sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
     }
 
-    // Build the new row — use the timestamp from the client if provided,
-    // otherwise use the server time (more trustworthy).
     var timestamp = new Date().toISOString();
 
     sheet.appendRow([
@@ -170,14 +235,14 @@ function doPost(e) {
       message,
     ]);
 
-    // 7. Success response — do not echo back personal data
+    // 7. Success response
     return jsonResponse({
       status:  'success',
       message: 'Enquiry received. Thank you!',
     });
 
   } catch (err) {
-    // Log the error server-side (visible in Apps Script → Executions)
+    // Log server-side (visible in Apps Script → Executions)
     // but do not leak stack traces to the client.
     console.error('doPost error:', err.message);
     return jsonResponse({

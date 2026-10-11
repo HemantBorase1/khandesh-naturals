@@ -5,11 +5,11 @@
      2. "From Our Farm to Your Snack" — new process section (cream bg)
    ───────────────────────────────────────────────────────── */
 
-const FEATURES = [
-  { emoji: '🍌', label: 'Two Flavours' },
-  { emoji: '✦', label: 'Handcrafted' },
-  { emoji: '🌿', label: 'No Preservatives' },
-];
+// const FEATURES = [
+//   { emoji: '🍌', label: 'Two Flavours' },
+//   { emoji: '✦', label: 'Handcrafted' },
+//   { emoji: '🌿', label: 'No Preservatives' },
+// ];
 
 const PROCESS_STEPS = [
   {
@@ -209,7 +209,7 @@ export default function About() {
                 flavour that fits your snack time.
               </p>
 
-              {/* Feature tiles */}
+              {/* Feature tiles
               <div className="flex items-center justify-center lg:justify-start gap-3 mb-8 flex-wrap">
                 {FEATURES.map(({ emoji, label }) => (
                   <div
@@ -222,7 +222,7 @@ export default function About() {
                     </span>
                   </div>
                 ))}
-              </div>
+              </div> */}
 
               {/* CTA */}
               <a
