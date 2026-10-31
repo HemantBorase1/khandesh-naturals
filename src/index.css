@@ -30,3 +30,25 @@ body {
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+/* ─── Announcement Banner Entrance Animation ─────────── */
+@keyframes bannerEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-banner-entrance {
+  animation: bannerEntrance 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-banner-entrance {
+    animation: none;
+  }
+}

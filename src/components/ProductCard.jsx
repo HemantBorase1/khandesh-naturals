@@ -3,7 +3,7 @@
  *
  * Props:
  *  name        {string}  — product display name
- *  price       {string}  — product price display (e.g. "₹250 / kg")
+ *  price       {string}  — product price display (e.g. "₹300 / kg")
  *  description {string}  — short product description
  *  imageUrl    {string}  — primary image URL
  *  imageAlt    {string}  — descriptive alt text
