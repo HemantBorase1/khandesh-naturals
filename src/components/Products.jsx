@@ -32,7 +32,7 @@ const PRODUCTS = [
       'Khandesh Naturals HomeMade ImaliCandy — traditional tangy tamarind candy',
   },
   {
-    id: 'homemade Imali pepsi',
+    id: '',
     name: 'HomeMade Pepsi',
     price: '₹5 / piece',
     description: 'A refreshing homemade fizzy drink inspired by classic flavours.',
