@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { submitEnquiry, ConfigurationError } from '../services/enquiryService';
 
-const PRODUCT_OPTIONS = ['Spicy Banana Chips', 'Salty Banana Chips', 'HomeMade ImaliCandy', 'HomeMade Pepsi'];
+const PRODUCT_OPTIONS = ['Spicy Banana Chips', 'Salty Banana Chips', 'HomeMade ImaliCandy', 'HomeMade Imali Pepsi'];
 
 const INITIAL_FORM    = { name: '', phone: '', product: '', message: '' };
 const INITIAL_ERRORS  = { name: '', phone: '', product: '' };

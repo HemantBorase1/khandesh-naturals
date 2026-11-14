@@ -33,13 +33,13 @@ const PRODUCTS = [
   },
   {
     id: '',
-    name: 'HomeMade Pepsi',
+    name: 'HomeMade Imali Pepsi',
     price: '₹5 / piece',
     description: 'A refreshing homemade fizzy drink inspired by classic flavours.',
     badge: '🥤 Drink',
     imageUrl: '/images/Pepsi.jpeg',
     imageAlt:
-      'Khandesh Naturals HomeMade Pepsi — refreshing homemade fizzy drink',
+      'Khandesh Naturals HomeMade Imali Pepsi — refreshing homemade fizzy drink',
   },
 ];
 
