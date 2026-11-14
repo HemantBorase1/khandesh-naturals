@@ -4,7 +4,7 @@ const PRODUCTS = [
   {
     id: 'spicy-banana-chips',
     name: 'Spicy Banana Chips',
-    price: '₹300 / kg',
+    price: '₹250 / kg',
     description: 'A flavourful, spicy crunch for those who enjoy a little heat.',
     badge: '🌶 Spicy',
     imageUrl: '/images/SpicyImg.png',
@@ -14,12 +14,32 @@ const PRODUCTS = [
   {
     id: 'salty-banana-chips',
     name: 'Salty Banana Chips',
-    price: '₹300 / kg',
+    price: '₹250 / kg',
     description: 'A simple, savoury crunch for your everyday snack moments.',
     badge: '🧂 Salty',
     imageUrl: '/images/SaltyChips.png',
     imageAlt:
       'Khandesh Naturals Salty Banana Chips — lightly salted, crispy banana chips in a bowl',
+  },
+  {
+    id: 'homemade-imali-candy',
+    name: 'HomeMade ImaliCandy',
+    price: '₹10 / piece',
+    description: 'A tangy, homemade tamarind candy — a traditional Khandeshi treat.',
+    badge: '🍬 Candy',
+    imageUrl: '/images/ImaliCandyImage.jpeg',
+    imageAlt:
+      'Khandesh Naturals HomeMade ImaliCandy — traditional tangy tamarind candy',
+  },
+  {
+    id: 'homemade-pepsi',
+    name: 'HomeMade Pepsi',
+    price: '₹5 / piece',
+    description: 'A refreshing homemade fizzy drink inspired by classic flavours.',
+    badge: '🥤 Drink',
+    imageUrl: '/images/Pepsi.jpeg',
+    imageAlt:
+      'Khandesh Naturals HomeMade Pepsi — refreshing homemade fizzy drink',
   },
 ];
 
@@ -48,12 +68,12 @@ export default function Products() {
             Our Favourite Crunch
           </h2>
           <p className="text-forest-green/65 text-base sm:text-lg max-w-lg mx-auto leading-relaxed">
-            Discover our two delicious banana chips varieties, made for your everyday snack moments.
+            Discover our delicious range of homemade snacks and treats, made for your everyday moments.
           </p>
         </div>
 
         {/* Product grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {PRODUCTS.map((product) => (
             <ProductCard
               key={product.id}
